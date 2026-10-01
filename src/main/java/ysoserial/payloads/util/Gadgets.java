@@ -102,9 +102,8 @@ public class Gadgets {
     public static <T> T createTemplatesImpl(Class myClass, final String command, byte[] bytes, Class<T> tplClass, Class<?> abstTranslet, Class<?> transFactory) throws Exception {
         final T templates = tplClass.newInstance();
         byte[] classBytes = new byte[0];
-        ClassPool pool = ClassPool.getDefault();
+        ClassPool pool = getClassPool();
 //        pool.insertClassPath(new ClassClassPath(abstTranslet));
-        pool.insertClassPath(new LoaderClassPath(Thread.currentThread().getContextClassLoader()));
         CtClass superC = pool.get(abstTranslet.getName());
         CtClass ctClass;
         if (command != null) {
@@ -162,6 +161,20 @@ public class Gadgets {
         Reflections.setFieldValue(templates, "_name", RandomStringUtils.randomAlphabetic(8).toUpperCase());
         Reflections.setFieldValue(templates, "_tfactory", transFactory.newInstance());
         return templates;
+    }
+
+    public static ClassPool getClassPool() {
+        ClassPool pool = ClassPool.getDefault();
+        ClassLoader payloadClassLoader = Gadgets.class.getClassLoader();
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+
+        if (payloadClassLoader != null) {
+            pool.insertClassPath(new LoaderClassPath(payloadClassLoader));
+        }
+        if (contextClassLoader != null && contextClassLoader != payloadClassLoader) {
+            pool.insertClassPath(new LoaderClassPath(contextClassLoader));
+        }
+        return pool;
     }
 
     public static HashMap makeMap(Object v1, Object v2) throws Exception {

