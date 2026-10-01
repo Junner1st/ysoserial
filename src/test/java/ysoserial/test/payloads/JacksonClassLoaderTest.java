@@ -41,6 +41,7 @@ public class JacksonClassLoaderTest {
             assertEquals(expectedPayloadClass, payload.getClass().getName());
             Class<?> baseJsonNode = Class.forName("com.fasterxml.jackson.databind.node.BaseJsonNode", false, payloadClassLoader);
             assertSame(payloadClassLoader, baseJsonNode.getClassLoader());
+            assertEquals("2.15.4", baseJsonNode.getPackage().getImplementationVersion());
         } finally {
             payloadClassLoader.close();
         }

@@ -13,7 +13,7 @@ import javax.management.BadAttributeValueExpException;
 import java.util.HashMap;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-@Dependencies({"com.fasterxml.jackson.core:jackson-databind:2.14.2"})
+@Dependencies({"com.fasterxml.jackson.core:jackson-databind:2.15.4"})
 @Authors({Authors.Y4ER})
 public class Jackson1 implements ObjectPayload<Object> {
 

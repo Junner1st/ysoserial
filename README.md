@@ -42,8 +42,8 @@ Usage: java -jar ysoserial-[version]-all.jar [payload] '[command]'
      JRMPClient                             @mbechler
      JRMPListener                           @mbechler
      JSON1                                  @mbechler                              json-lib:jar:jdk15:2.4, spring-aop:4.1.4.RELEASE, aopalliance:1.0, commons-logging:1.2, commons-lang:2.6, ezmorph:1.0.6, commons-beanutils:1.9.2, spring-core:4.1.4.RELEASE, commons-collections:3.1
-     Jackson1                               @Y4er                                  jackson-databind:2.14.2
-     Jackson2                               @Y4er                                  jackson-databind:2.14.2, spring-aop:4.1.4.RELEASE
+     Jackson1                               @Y4er                                  jackson-databind:2.15.4
+     Jackson2                               @Y4er                                  jackson-databind:2.15.4, spring-aop:4.1.4.RELEASE
      JavassistWeld1                         @matthias_kaiser                       javassist:3.12.1.GA, weld-core:1.1.33.Final, cdi-api:1.0-SP1, javax.interceptor-api:3.1, jboss-interceptor-spi:2.0.0.Final, slf4j-api:1.7.21
      Jdk7u21                                @frohoff
      Jython1                                @pwntester, @cschneider4711            jython-standalone:2.5.2

@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-@Dependencies({"com.fasterxml.jackson.core:jackson-databind:2.14.2", "org.springframework:spring-aop:4.1.4.RELEASE"})
+@Dependencies({"com.fasterxml.jackson.core:jackson-databind:2.15.4", "org.springframework:spring-aop:4.1.4.RELEASE"})
 @Authors({Authors.Y4ER})
 public class Jackson2 implements ObjectPayload<Object> {
 
